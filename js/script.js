@@ -4,10 +4,13 @@ const textInput = document.querySelector(".letter");
 const wordInProgress = document.querySelector(".word-in-progress");
 const guessesRemaining = document.querySelector(".remaining");
 const guessesRemainingSpan = document.querySelector(".remaining span");
-const guessMessage = document.querySelector(".guess");
+const message = document.querySelector(".message");
 const playPromptButton = document.querySelector(".play-again-hide");
 
 const word = "magnolia";
+const guessedLetters = [];
+
+//TODO: Add a New Global Variable for Player Guesses
 
 const placeholder = function (word) {
   const placeholderLetters = [];
@@ -21,10 +24,31 @@ const placeholder = function (word) {
 
 placeholder(word);
 
+//TODO: Validate Input in the Button Event Handler
 guessButton.addEventListener("click", function(e){
   e.preventDefault();
-  const guess = textInput.value;
-  console.log(guess);
-  guess.value = "";
+  message.innerText = "";
+  textInput.value = "";
 });
+
+//Function to Check Player’s Input
+const inputValidatiion = function(input) {
+  const acceptedLetter = /[a-zA-Z]/;
+  
+  if(input.length === 0) {
+    message.innerText = "Please enter a letter" 
+  } else if(input.length > 1) {
+    message.innerText = "Please add only 1 letter"
+  } else if(!input.math(acceptedLetter)) {
+    message.innerText = "Pleas enter a letter between A-Z"
+  } else {
+    return input;
+  }
+};
+
+  
+
+
+
+//Create a Function to Capture Input
 
