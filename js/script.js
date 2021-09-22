@@ -22,16 +22,14 @@ const placeholder = function (word) {
     wordInProgress.innerText = placeholderLetters.join("");
 };
 
-
 placeholder(word);
 
-//TODO: Validate Input in the Button Event Handler
 guessButton.addEventListener("click", function(e){
   e.preventDefault();
   message.innerText = "";
   const guess = letterInput.value;
   const goodGuess = validateInput(guess);
-  if (goodGuess) {
+  if(goodGuess) {
     makeGuess(guess);
   }
   letterInput.value = "";
@@ -54,12 +52,31 @@ const validateInput = function(input) {
 
 //Function to Capture Input
 
-const makeGuess = function (guess) {
+const makeGuess = function(guess) {
   guess = guess.toUpperCase();
   if(guessedLetters.includes(guess)) {
-    message.innerText = "Oops, try a different letter!";
-  } else{
+    message.innerText = "Oops, guess another letter!";
+  } else {
     guessedLetters.push(guess);
+    updatedLetters();
     console.log(guessedLetters);
   }
 };
+
+
+//TODO: Function to show guessed letters
+const updatedLetters = function() {
+  guessedLettersElement.innerText = "";
+
+  for(const letter of guessedLetters) {
+    const li = document.createElement("li");
+    li.innerText = letter;
+    guessedLettersElement.append(li);
+  }
+}
+
+//TODO: Function to update word in progress
+
+//TODO: Function to check if player won
+
+//
