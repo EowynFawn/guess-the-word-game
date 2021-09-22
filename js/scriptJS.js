@@ -1,6 +1,6 @@
-const guessedLettersElement = document.querySelector(".guessed-letters");
+const ul = document.querySelector(".guessed-letters");
 const guessButton = document.querySelector(".guess");
-const letterInput = document.querySelector(".letter");
+const textInput = document.querySelector(".letter");
 const wordInProgress = document.querySelector(".word-in-progress");
 const guessesRemaining = document.querySelector(".remaining");
 const guessesRemainingSpan = document.querySelector(".remaining span");
@@ -19,9 +19,8 @@ const placeholder = function (word) {
       console.log(letter);
       placeholderLetters.push("●");
   }
-    wordInProgress.innerText = placeholderLetters.join("");
+    wordInProgress.letter = placeholderLetters.join("");
 };
-
 
 placeholder(word);
 
@@ -29,24 +28,19 @@ placeholder(word);
 guessButton.addEventListener("click", function(e){
   e.preventDefault();
   message.innerText = "";
-  const guess = letterInput.value;
-  const goodGuess = validateInput(guess);
-  if (goodGuess) {
-    makeGuess(guess);
-  }
-  letterInput.value = "";
+  textInput.value = "";
 });
 
 //Function to Check Player’s Input
-const validateInput = function(input) {
-  const acceptedLetters = /[a-zA-Z]/;
+const inputValidatiion = function(input) {
+  const acceptedLetter = /[a-zA-Z]/;
   
   if(input.length === 0) {
-    message.innerText = "Please enter a letter";
+    message.innerText = "Please enter a letter" 
   } else if(input.length > 1) {
-    message.innerText = "Please add only 1 letter";
-  } else if(!input.match(acceptedLetters)) {
-    message.innerText = "Pleas enter a letter between A-Z";
+    message.innerText = "Please add only 1 letter"
+  } else if(!input.math(acceptedLetter)) {
+    message.innerText = "Pleas enter a letter between A-Z"
   } else {
     return input;
   }
@@ -54,12 +48,4 @@ const validateInput = function(input) {
 
 //Function to Capture Input
 
-const makeGuess = function (guess) {
-  guess = guess.toUpperCase();
-  if(guessedLetters.includes(guess)) {
-    message.innerText = "Oops, try a different letter!";
-  } else{
-    guessedLetters.push(guess);
-    console.log(guessedLetters);
-  }
-};
+
