@@ -29,7 +29,7 @@ guessButton.addEventListener("click", function(e){
   message.innerText = "";
   const guess = letterInput.value;
   const goodGuess = validateInput(guess);
-  if(goodGuess) {
+  if (goodGuess) {
     makeGuess(guess);
   }
   letterInput.value = "";
@@ -51,7 +51,6 @@ const validateInput = function(input) {
 };
 
 //Function to Capture Input
-
 const makeGuess = function(guess) {
   guess = guess.toUpperCase();
   if(guessedLetters.includes(guess)) {
@@ -59,24 +58,43 @@ const makeGuess = function(guess) {
   } else {
     guessedLetters.push(guess);
     updatedLetters();
+    updateWordInProgress(guessedLetters);
     console.log(guessedLetters);
   }
 };
 
 
-//TODO: Function to show guessed letters
-const updatedLetters = function() {
-  guessedLettersElement.innerText = "";
+//Function to show guessed letters
+ const updatedLetters = function() {
+   guessedLettersElement.innerHTML = "";
+   for (const letter of guessedLetters) {
+     const li = document.createElement("li");
+     li.innerHTML = letter;
+     guessedLettersElement.append(li);
+   }
+ };
 
-  for(const letter of guessedLetters) {
-    const li = document.createElement("li");
-    li.innerText = letter;
-    guessedLettersElement.append(li);
+
+//Function to update word in progress
+const updateWordInProgress = function() {
+  const wordUpper = word.toUpperCase();
+  const wordArray = wordUpper.split("");
+  const revealWord = [];
+  for (const letter of wordArray) {
+    if(guessedLetters.includes(letter)) {
+      revealWord.push(letter.toUpperCase());
+    } else {
+      revealWord.push("●");
+    }
+    wordInProgress.innerText = revealWord.join("");
   }
-}
-
-//TODO: Function to update word in progress
-
-//TODO: Function to check if player won
-
-//
+  checkIfWin();
+};
+   
+//Function to check if player won
+const checkIfWin = function() {
+  if(wordInProgress.innerHTML === word.toUpperCase()) {
+    message.classList.add("win");
+    message.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
+  }
+};
